@@ -1,0 +1,230 @@
+.app-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
+  margin: 1rem auto;
+}
+
+.quiz-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.quiz-header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+.quiz-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.question-count {
+  font-size: 0.9rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.question-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  line-height: 1.3;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option-btn {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+  padding: 1.25rem 1.5rem;
+  border-radius: 16px;
+  font-size: 1.1rem;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.option-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 20px -10px rgba(0,0,0,0.1);
+}
+
+.option-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.option-btn.correct {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.option-btn.wrong {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.option-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.4s ease-out forwards;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.pulse-text {
+  animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.question-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 900px;
+  }
+  
+  .question-layout {
+    flex-direction: row;
+    gap: 3rem;
+  }
+  
+  .question-content-left {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .question-content-right {
+    flex: 0.8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Score Board */
+.score-board {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.score-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent-primary) calc(var(--percentage) * 1%), rgba(0,0,0,0.05) 0);
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.score-circle::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  background: var(--bg-secondary);
+  border-radius: 50%;
+}
+
+.score-text {
+  position: relative;
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: var(--font-heading);
+}
+
+.restart-btn {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  box-shadow: 0 10px 20px -10px var(--accent-primary);
+}
+
+.restart-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 25px -10px var(--accent-primary);
+}
+
+.next-btn-container {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.next-btn {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-primary);
+  padding: 0.75rem 2rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.next-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.brand-footer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  color: #ff9800; /* Medium orange */
+  font-weight: 600;
+  opacity: 1;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .brand-footer {
+    right: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    bottom: 15px;
+    font-size: 1.1rem;
+  }
+}
