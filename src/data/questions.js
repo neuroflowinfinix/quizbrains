@@ -175,6 +175,6 @@ export const questions = [
       "c",
       "none of them"
     ],
-    answer: "a"
+    answer: "b"
   }
 ];

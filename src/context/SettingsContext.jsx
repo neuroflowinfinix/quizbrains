@@ -7,6 +7,7 @@ export const useSettings = () => useContext(SettingsContext);
 export const SettingsProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => localStorage.getItem('quizTheme') || 'light');
   const [fontSize, setFontSize] = useState(() => localStorage.getItem('quizFontSize') || 'medium');
+  const [autoNext, setAutoNext] = useState(() => localStorage.getItem('quizAutoNext') === 'true');
 
   useEffect(() => {
     localStorage.setItem('quizTheme', theme);
@@ -21,8 +22,12 @@ export const SettingsProvider = ({ children }) => {
     document.documentElement.style.fontSize = sizeValue;
   }, [fontSize]);
 
+  useEffect(() => {
+    localStorage.setItem('quizAutoNext', autoNext);
+  }, [autoNext]);
+
   return (
-    <SettingsContext.Provider value={{ theme, setTheme, fontSize, setFontSize }}>
+    <SettingsContext.Provider value={{ theme, setTheme, fontSize, setFontSize, autoNext, setAutoNext }}>
       {children}
     </SettingsContext.Provider>
   );

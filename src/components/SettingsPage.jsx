@@ -4,7 +4,7 @@ import { useSettings } from '../context/SettingsContext';
 
 const SettingsPage = () => {
   const navigate = useNavigate();
-  const { theme, setTheme, fontSize, setFontSize } = useSettings();
+  const { theme, setTheme, fontSize, setFontSize, autoNext, setAutoNext } = useSettings();
 
   return (
     <div className="app-container">
@@ -16,7 +16,9 @@ const SettingsPage = () => {
       <div 
         className="glass-panel animate-slide-in"
         style={{
-          padding: '3rem',
+          padding: '2rem',
+          maxWidth: '500px',
+          margin: '0 auto',
           textAlign: 'left',
           background: 'var(--bg-secondary)', // Make it fully opaque
           backdropFilter: 'none' // Remove transparency
@@ -80,6 +82,37 @@ const SettingsPage = () => {
               </button>
             ))}
           </div>
+        </div>
+
+        <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <div>
+            <h3 style={{ fontSize: '1.2rem', marginBottom: '0.2rem', color: 'var(--text-primary)' }}>Auto Next</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', margin: 0 }}>Automatically go to the next question when answered.</p>
+          </div>
+          <button
+            style={{
+              width: '50px',
+              height: '26px',
+              borderRadius: '13px',
+              background: autoNext ? 'var(--accent-primary)' : 'var(--glass-border)',
+              position: 'relative',
+              border: 'none',
+              cursor: 'pointer',
+              transition: 'background 0.3s'
+            }}
+            onClick={() => setAutoNext(!autoNext)}
+          >
+            <div style={{
+              width: '22px',
+              height: '22px',
+              borderRadius: '50%',
+              background: 'white',
+              position: 'absolute',
+              top: '2px',
+              left: autoNext ? '26px' : '2px',
+              transition: 'left 0.3s'
+            }} />
+          </button>
         </div>
       </div>
 

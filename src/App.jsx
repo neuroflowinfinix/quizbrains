@@ -20,7 +20,7 @@ function App() {
       <Link 
         to="/settings"
         style={{
-          position: 'fixed',
+          position: 'absolute',
           top: '20px',
           right: '20px',
           background: 'var(--bg-secondary)',

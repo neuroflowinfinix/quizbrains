@@ -10,8 +10,8 @@ export const quizList = [
   },
   {
     id: 2,
-    title: 'Face',
-    dateUploaded: 'July 14, 2026',
+    title: 'Sole',
+    dateUploaded: 'July 15, 2026',
     questions: questions2
   }
 ];

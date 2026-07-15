@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSettings } from '../context/SettingsContext';
 
 const QuestionCard = ({ questionData, currentQuestion, totalQuestions, onAnswer }) => {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -6,6 +7,7 @@ const QuestionCard = ({ questionData, currentQuestion, totalQuestions, onAnswer 
   const [displayOptions, setDisplayOptions] = useState([]);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isZoomed, setIsZoomed] = useState(false);
+  const { autoNext } = useSettings();
   
   useEffect(() => {
     setImageLoaded(false);
@@ -14,6 +16,16 @@ const QuestionCard = ({ questionData, currentQuestion, totalQuestions, onAnswer 
     const shuffled = [...questionData.options].sort(() => Math.random() - 0.5);
     setDisplayOptions(shuffled);
   }, [questionData.id, questionData.options]);
+
+  useEffect(() => {
+    if (autoNext && selectedOption !== null) {
+      const timer = setTimeout(() => {
+        onAnswer(selectedOption);
+        setSelectedOption(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedOption, autoNext, onAnswer]);
 
   const handleOptionClick = (option) => {
     if (selectedOption !== null) return;
@@ -56,8 +68,14 @@ const QuestionCard = ({ questionData, currentQuestion, totalQuestions, onAnswer 
       </div>
 
       {selectedOption !== null && (
-        <div className="next-btn-container animate-slide-in">
-          <button className="next-btn" onClick={handleNext}>
+        <div className="next-btn-container animate-slide-in" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%' }}>
+          {questionData.explanation && (
+            <div className="explanation-box" style={{ padding: '1rem', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', borderLeft: '4px solid var(--primary)', textAlign: 'left' }}>
+              <h4 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>Explanation</h4>
+              <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.5' }}>{questionData.explanation}</p>
+            </div>
+          )}
+          <button className="next-btn" onClick={handleNext} style={{ alignSelf: 'center' }}>
             {currentQuestion === totalQuestions ? 'Finish Quiz' : 'Next Question'}
           </button>
         </div>
